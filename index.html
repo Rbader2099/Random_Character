@@ -7,7 +7,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-image: url('Background.webp'); /* Use your .webp image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,6 +25,7 @@
         .header p {
             font-size: 24px;
             margin: 5px 0;
+            color: #fff; /* White text to contrast with the background */
         }
         .stats-container {
             display: flex;
@@ -56,9 +60,23 @@
         .character-stats {
             margin-top: 20px;
             text-align: left;
+            color: #fff; /* White text for contrast */
         }
         .character-stats p {
             margin: 5px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
