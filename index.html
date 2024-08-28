@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random D&D Character Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .character-stats {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .character-stats p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Random D&D Character Generator</h1>
+    <button onclick="generateCharacter()">Generate Character</button>
+    <div class="character-stats" id="characterStats">
+        <!-- Character stats will be displayed here -->
+    </div>
+</div>
+
+<script>
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function rollAbilityScore() {
+        let rolls = [];
+        for (let i = 0; i < 4; i++) {
+            rolls.push(getRandomInt(1, 6));
+        }
+        rolls.sort((a, b) => b - a);
+        return rolls[0] + rolls[1] + rolls[2];
+    }
+
+    function generateCharacter() {
+        const races = ['Human', 'Elf', 'Dwarf', 'Halfling', 'Orc', 'Dragonborn', 'Gnome', 'Tiefling'];
+        const classes = ['Fighter', 'Wizard', 'Rogue', 'Cleric', 'Ranger', 'Paladin', 'Bard', 'Sorcerer'];
+
+        const characterRace = races[getRandomInt(0, races.length - 1)];
+        const characterClass = classes[getRandomInt(0, classes.length - 1)];
+
+        const stats = {
+            Strength: rollAbilityScore(),
+            Dexterity: rollAbilityScore(),
+            Constitution: rollAbilityScore(),
+            Intelligence: rollAbilityScore(),
+            Wisdom: rollAbilityScore(),
+            Charisma: rollAbilityScore()
+        };
+
+        const characterStatsElement = document.getElementById('characterStats');
+        characterStatsElement.innerHTML = `
+            <p><strong>Race:</strong> ${characterRace}</p>
+            <p><strong>Class:</strong> ${characterClass}</p>
+            <p><strong>Strength:</strong> ${stats.Strength}</p>
+            <p><strong>Dexterity:</strong> ${stats.Dexterity}</p>
+            <p><strong>Constitution:</strong> ${stats.Constitution}</p>
+            <p><strong>Intelligence:</strong> ${stats.Intelligence}</p>
+            <p><strong>Wisdom:</strong> ${stats.Wisdom}</p>
+            <p><strong>Charisma:</strong> ${stats.Charisma}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>
