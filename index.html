@@ -13,26 +13,45 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
-        .container {
+        .header {
             text-align: center;
-            background-color: #fff;
+            margin-bottom: 20px;
+        }
+        .header p {
+            font-size: 24px;
+            margin: 5px 0;
+        }
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+        }
+        .stat-box {
+            background-color: #000;
+            color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        button {
-            padding: 10px 20px;
+        .stat-box p {
+            margin: 0;
+        }
+        .stat-box .stat-name {
             font-size: 16px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            margin-top: 20px;
+            margin-bottom: 10px;
         }
-        button:hover {
-            background-color: #0056b3;
+        .stat-box .stat-value {
+            font-size: 24px;
+            font-weight: bold;
         }
         .character-stats {
             margin-top: 20px;
@@ -45,13 +64,20 @@
 </head>
 <body>
 
-<div class="container">
-    <h1>Random D&D Character Generator</h1>
-    <button onclick="generateCharacter()">Generate Character</button>
-    <div class="character-stats" id="characterStats">
-        <!-- Character stats will be displayed here -->
-    </div>
+<div class="header">
+    <p id="characterName"></p>
+    <p id="characterSexRace"></p>
 </div>
+
+<div class="stats-container" id="mainStats">
+    <!-- Main stats will be displayed here -->
+</div>
+
+<div class="character-stats" id="characterStats">
+    <!-- Additional character stats will be displayed here -->
+</div>
+
+<button onclick="generateCharacter()">Generate Character</button>
 
 <script>
     function getRandomInt(min, max) {
@@ -117,6 +143,37 @@
 
         const proficientSkills = Object.keys(skills).filter(() => Math.random() > 0.5); // Randomly choose skills to be proficient in
 
+        document.getElementById('characterName').textContent = characterName;
+        document.getElementById('characterSexRace').textContent = `${characterSex}, ${characterRace} ${characterClass}`;
+
+        const mainStatsElement = document.getElementById('mainStats');
+        mainStatsElement.innerHTML = `
+            <div class="stat-box">
+                <p class="stat-name">Strength</p>
+                <p class="stat-value">${stats.Strength}</p>
+            </div>
+            <div class="stat-box">
+                <p class="stat-name">Dexterity</p>
+                <p class="stat-value">${stats.Dexterity}</p>
+            </div>
+            <div class="stat-box">
+                <p class="stat-name">Constitution</p>
+                <p class="stat-value">${stats.Constitution}</p>
+            </div>
+            <div class="stat-box">
+                <p class="stat-name">Intelligence</p>
+                <p class="stat-value">${stats.Intelligence}</p>
+            </div>
+            <div class="stat-box">
+                <p class="stat-name">Wisdom</p>
+                <p class="stat-value">${stats.Wisdom}</p>
+            </div>
+            <div class="stat-box">
+                <p class="stat-name">Charisma</p>
+                <p class="stat-value">${stats.Charisma}</p>
+            </div>
+        `;
+
         const characterStatsElement = document.getElementById('characterStats');
         let skillsOutput = '';
 
@@ -127,17 +184,6 @@
         }
 
         characterStatsElement.innerHTML = `
-            <p><strong>Name:</strong> ${characterName}</p>
-            <p><strong>Sex:</strong> ${characterSex}</p>
-            <p><strong>Age:</strong> ${characterAge}</p>
-            <p><strong>Race:</strong> ${characterRace}</p>
-            <p><strong>Class:</strong> ${characterClass}</p>
-            <p><strong>Strength:</strong> ${stats.Strength}</p>
-            <p><strong>Dexterity:</strong> ${stats.Dexterity}</p>
-            <p><strong>Constitution:</strong> ${stats.Constitution}</p>
-            <p><strong>Intelligence:</strong> ${stats.Intelligence}</p>
-            <p><strong>Wisdom:</strong> ${stats.Wisdom}</p>
-            <p><strong>Charisma:</strong> ${stats.Charisma}</p>
             <hr>
             <h2>Skills</h2>
             ${skillsOutput}
