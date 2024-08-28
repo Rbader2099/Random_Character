@@ -83,7 +83,39 @@
             Charisma: rollAbilityScore()
         };
 
+        const skills = {
+            'Acrobatics (Dex)': stats.Dexterity,
+            'Animal Handling (Wis)': stats.Wisdom,
+            'Arcana (Int)': stats.Intelligence,
+            'Athletics (Str)': stats.Strength,
+            'Deception (Cha)': stats.Charisma,
+            'History (Int)': stats.Intelligence,
+            'Insight (Wis)': stats.Wisdom,
+            'Intimidation (Cha)': stats.Charisma,
+            'Investigation (Int)': stats.Intelligence,
+            'Medicine (Wis)': stats.Wisdom,
+            'Nature (Int)': stats.Intelligence,
+            'Perception (Wis)': stats.Wisdom,
+            'Performance (Cha)': stats.Charisma,
+            'Persuasion (Cha)': stats.Charisma,
+            'Religion (Int)': stats.Intelligence,
+            'Sleight of Hand (Dex)': stats.Dexterity,
+            'Stealth (Dex)': stats.Dexterity,
+            'Survival (Wis)': stats.Wisdom
+        };
+
+        const proficiencyBonus = 2; // Assume level 1, proficiency bonus of +2
+        const proficientSkills = Object.keys(skills).filter(() => Math.random() > 0.5); // Randomly choose skills to be proficient in
+
         const characterStatsElement = document.getElementById('characterStats');
+        let skillsOutput = '';
+
+        for (const [skill, stat] of Object.entries(skills)) {
+            const isProficient = proficientSkills.includes(skill);
+            const skillValue = stat + (isProficient ? proficiencyBonus : 0);
+            skillsOutput += `<p>${skill}: ${skillValue} ${isProficient ? '(Proficient)' : ''}</p>`;
+        }
+
         characterStatsElement.innerHTML = `
             <p><strong>Race:</strong> ${characterRace}</p>
             <p><strong>Class:</strong> ${characterClass}</p>
@@ -93,6 +125,9 @@
             <p><strong>Intelligence:</strong> ${stats.Intelligence}</p>
             <p><strong>Wisdom:</strong> ${stats.Wisdom}</p>
             <p><strong>Charisma:</strong> ${stats.Charisma}</p>
+            <hr>
+            <h2>Skills</h2>
+            ${skillsOutput}
         `;
     }
 </script>
