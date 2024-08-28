@@ -83,6 +83,8 @@
             Charisma: rollAbilityScore()
         };
 
+        const proficiencyBonus = 2; // Assume level 1, proficiency bonus of +2
+
         const skills = {
             'Acrobatics (Dex)': stats.Dexterity,
             'Animal Handling (Wis)': stats.Wisdom,
@@ -104,7 +106,6 @@
             'Survival (Wis)': stats.Wisdom
         };
 
-        const proficiencyBonus = 2; // Assume level 1, proficiency bonus of +2
         const proficientSkills = Object.keys(skills).filter(() => Math.random() > 0.5); // Randomly choose skills to be proficient in
 
         const characterStatsElement = document.getElementById('characterStats');
