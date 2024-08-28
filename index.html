@@ -70,9 +70,18 @@
     function generateCharacter() {
         const races = ['Human', 'Elf', 'Dwarf', 'Halfling', 'Orc', 'Dragonborn', 'Gnome', 'Tiefling'];
         const classes = ['Fighter', 'Wizard', 'Rogue', 'Cleric', 'Ranger', 'Paladin', 'Bard', 'Sorcerer'];
+        const sexes = ['Male', 'Female', 'Non-binary'];
+        const names = {
+            Male: ['Aragorn', 'Boromir', 'Frodo', 'Legolas', 'Gimli', 'Samwise'],
+            Female: ['Arwen', 'Éowyn', 'Galadriel', 'Tauriel', 'Rosie', 'Lúthien'],
+            'Non-binary': ['Valiel', 'Elorin', 'Finlar', 'Silmar', 'Thornir', 'Estel']
+        };
 
         const characterRace = races[getRandomInt(0, races.length - 1)];
         const characterClass = classes[getRandomInt(0, classes.length - 1)];
+        const characterSex = sexes[getRandomInt(0, sexes.length - 1)];
+        const characterName = names[characterSex][getRandomInt(0, names[characterSex].length - 1)];
+        const characterAge = getRandomInt(20, 100); // Random age between 20 and 100
 
         const stats = {
             Strength: rollAbilityScore(),
@@ -118,6 +127,9 @@
         }
 
         characterStatsElement.innerHTML = `
+            <p><strong>Name:</strong> ${characterName}</p>
+            <p><strong>Sex:</strong> ${characterSex}</p>
+            <p><strong>Age:</strong> ${characterAge}</p>
             <p><strong>Race:</strong> ${characterRace}</p>
             <p><strong>Class:</strong> ${characterClass}</p>
             <p><strong>Strength:</strong> ${stats.Strength}</p>
